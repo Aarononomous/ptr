@@ -1,4 +1,3 @@
-%matplotlib inline
 from math import sqrt
 import nltk
 from nltk import Tree
