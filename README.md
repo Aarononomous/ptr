@@ -9,26 +9,18 @@ There are no other files needed. Libraries such as `nltk` and `spaCy` themselves
 ### Example: Finding the reading level of a text file within the console
 
 ```python
->>> import ptr
+>>> from ptr import *
 >>> file = open('moby-dick.txt')
 >>> text = file.read()
 >>> file.close()
->>> readability = ptr.readability(text)
+>>> corpus = tag_sentences(text)
+>>> text_stats = TextStats(corpus).basic_counts()
+>>> tag_stats = TagStats(corpus).get_stats()
+>>> tree_stats = TreeStats(corpus).get_stats()
+>>> readability = ptr(text_stats, tag_stats, tree_stats)
+>>> print(readability)
 16.74
 >>>
-```
-
-### Example: Finding the 5 most ambiguous sentences in a tagged corpus
-
-```python
->>> import ptr
->>> import nltk
->>> wsj_12 = nltk.corpus.treebank.parsed_sents('wsj_0012.mrg')
->>> ambiguities = [ptr.n_parse_trees(sentence) for sentence in wsj_12]
->>> rated_sentences = zip(ambiguities, wsj_12)
->>> top_5 = sorted(rated_sentences)[:5]
->>> for rating, sentence in top_5:
->>>     print(rating, sentence.leaves())
 ```
 
 ## Using `Parse Tree Readability.ipynb`
